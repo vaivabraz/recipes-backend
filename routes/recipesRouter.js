@@ -1,4 +1,6 @@
 /* eslint-disable no-param-reassign */
+/* eslint-disable no-underscore-dangle */
+/* eslint-disable arrow-parens */
 const express = require("express");
 
 function routes(Recipe) {
@@ -6,6 +8,9 @@ function routes(Recipe) {
   recipesRouter
     .route("/recipes")
     .post((req, res) => {
+      req.body.slug = req.body.title.replace(/\s+/g, "-").toLowerCase();
+      req.body.date = Date.now();
+      req.body._id = `${req.body.author}-${req.body.slug}`.toLocaleLowerCase();
       const recipe = new Recipe(req.body);
       recipe.save();
       return res.status(201).json(recipe);
@@ -22,26 +27,46 @@ function routes(Recipe) {
         return res.json(recipes);
       });
     });
-
+  recipesRouter.use("/recipes/:recipeId", (req, res, next) => {
+    // http://localhost:4050/api/recipes/5dc1cf21f63e8c59f6d25aed
+    Recipe.findById(req.params.recipeId, (err, recipe) => {
+      if (err) {
+        return res.send(err);
+      }
+      if (recipe) {
+        req.recipe = recipe;
+        return next();
+      }
+      return res.sendStatus(404);
+    });
+  });
   recipesRouter
     .route("/recipes/:recipeId")
-    .get((req, res) => {
-      Recipe.findById(req.params.recipeId, (err, recipe) => {
+    .get((req, res) => res.json(req.recipe))
+    .put((req, res) => {
+      const { recipe } = req;
+      const recipeUpdate = req.body;
+      if (recipe._id) {
+        delete recipe._id;
+      }
+      Object.entries(recipeUpdate).forEach(item => {
+        const key = item[0];
+        const value = item[1];
+        recipe[key] = value;
+      });
+      recipe.save(err => {
         if (err) {
           return res.send(err);
         }
         return res.json(recipe);
       });
     })
-    .post((req, res) => {
-      Recipe.findById(req.params.recipeId, (err, recipe) => {
+    .delete((req, res) => {
+      req.recipe.remove(err => {
         if (err) {
           return res.send(err);
         }
-
-        recipe.title = req.body.title;
-        recipe.save();
-        return res.json(recipe);
+        return res.sendStatus(204);
       });
     });
   return recipesRouter;
