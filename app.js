@@ -1,12 +1,15 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
+const cors = require("cors");
 require("dotenv").config();
 
 const dbUser = process.env.DATABASE_USER;
 const dbPassword = process.env.DATABASE_PASSWORD;
 
 const app = express();
+
+app.use(cors());
 const localUri = "mongodb://localhost/recipesAPI";
 const mongodbUri = `mongodb+srv://${dbUser}:${dbPassword}@recipes-4rrlu.gcp.mongodb.net/test?retryWrites=true&w=majority`;
 const db = mongoose.connect(mongodbUri);
