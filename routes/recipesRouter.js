@@ -17,8 +17,8 @@ function routes(Recipe) {
     })
     .get((req, res) => {
       const query = {};
-      if (req.query.author) {
-        query.author = req.query.author;
+      if (req.query.slug) {
+        query.slug = req.query.slug;
       }
       Recipe.find(query, (err, recipes) => {
         if (err) {
