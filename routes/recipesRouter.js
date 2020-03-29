@@ -19,6 +19,9 @@ function routes(Recipe) {
       const query = {};
       if (req.query.slug) {
         query.slug = req.query.slug;
+      } else if (req.query.category) {
+        // http://localhost:3001/api/recipes/?category=Greiti
+        query.categories = req.query.category;
       }
       Recipe.find(query, (err, recipes) => {
         if (err) {
