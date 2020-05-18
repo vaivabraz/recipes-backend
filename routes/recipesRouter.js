@@ -52,12 +52,12 @@ function routes(Recipe) {
       if (recipe._id) {
         delete recipe._id;
       }
-      Object.entries(recipeUpdate).forEach(item => {
+      Object.entries(recipeUpdate).forEach((item) => {
         const key = item[0];
         const value = item[1];
         recipe[key] = value;
       });
-      recipe.save(err => {
+      recipe.save((err) => {
         if (err) {
           return res.send(err);
         }
@@ -65,7 +65,7 @@ function routes(Recipe) {
       });
     })
     .delete((req, res) => {
-      req.recipe.remove(err => {
+      req.recipe.remove((err) => {
         if (err) {
           return res.send(err);
         }
