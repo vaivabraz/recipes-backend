@@ -12,19 +12,21 @@ const app = express();
 app.use(cors());
 const localUri = "mongodb://localhost/recipesAPI";
 const mongodbUri = `mongodb+srv://${dbUser}:${dbPassword}@recipes-4rrlu.gcp.mongodb.net/test?retryWrites=true&w=majority`;
-const db = mongoose.connect(mongodbUri);
+const db = mongoose.connect(mongodbUri, { useNewUrlParser: true });
 const port = process.env.PORT || 3001;
 const User = require("./models/userModel");
 const Recipe = require("./models/recipeModel");
 
 const recipesRouter = require("./routes/recipesRouter")(Recipe);
 const userRouter = require("./routes/usersRouter")(User);
+const loginRouter = require("./routes/loginRouter")();
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 app.use("/api", recipesRouter);
 app.use("/api", userRouter);
+app.use("/api", loginRouter);
 app.locals.moment = require("moment");
 
 app.get("/", (req, res) => {
@@ -37,5 +39,5 @@ app.get("/env", (req, res) => {
 });
 
 app.listen(port, () => {
-  console.log("Server running on port " + port);
+  console.log(`Server running on port ${port}`);
 });
