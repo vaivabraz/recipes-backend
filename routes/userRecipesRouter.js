@@ -23,30 +23,41 @@ function routes() {
       return next();
     });
   });
-  recipesRouter.route("/userRecipes").post(async (req, res) => {
-    const { recipe } = req.body;
-    recipe.author = req.body.username;
-    recipe._id = new mongoose.Types.ObjectId();
-    recipe.date = Date.now();
+  recipesRouter
+    .route("/userRecipes")
+    .get((req, res) => {
+      const query = { author: req.body.username };
+      RecipeModel.find(query, (err, recipes) => {
+        if (err) {
+          return res.send(err);
+        }
+        return res.json(recipes);
+      });
+    })
+    .post(async (req, res) => {
+      const { recipe } = req.body;
+      recipe.author = req.body.username;
+      recipe._id = new mongoose.Types.ObjectId();
+      recipe.date = Date.now();
 
-    const latestRecipe = await RecipeModel.findOne({}).sort({ recipeId: -1 });
+      const latestRecipe = await RecipeModel.findOne({}).sort({ recipeId: -1 });
 
-    recipe.recipeId = latestRecipe.recipeId + 1;
-    recipe.slug = `${recipe.title.replace(/\s+/g, "-").toLowerCase()}-${
-      recipe.recipeId
-    }`;
-    const newRecipeDocument = new RecipeModel(recipe);
-    newRecipeDocument.save();
-    const { user } = req;
-    user.recipesList.push({
-      title: recipe.title,
-      slug: recipe.slug,
-      image: recipe.image,
+      recipe.recipeId = latestRecipe.recipeId + 1;
+      recipe.slug = `${recipe.title.replace(/\s+/g, "-").toLowerCase()}-${
+        recipe.recipeId
+      }`;
+      const newRecipeDocument = new RecipeModel(recipe);
+      newRecipeDocument.save();
+      const { user } = req;
+      user.recipesList.push({
+        title: recipe.title,
+        slug: recipe.slug,
+        image: recipe.image,
+      });
+      user.save();
+
+      return res.status(201).json(recipe);
     });
-    user.save();
-
-    return res.status(201).json(recipe);
-  });
 
   return recipesRouter;
 }
