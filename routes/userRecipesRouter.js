@@ -58,6 +58,21 @@ function routes() {
 
       return res.status(201).json(recipe);
     });
+  recipesRouter.use("/userRecipes/:slug", (req, res, next) => {
+    RecipeModel.findOne({ slug: req.params.slug }, (err, recipe) => {
+      if (err) {
+        return res.send(err);
+      }
+      if (recipe) {
+        req.recipe = recipe;
+        return next();
+      }
+      return res.sendStatus(404);
+    });
+  });
+  recipesRouter
+    .route("/userRecipes/:slug")
+    .get((req, res) => res.json(req.recipe));
 
   return recipesRouter;
 }
