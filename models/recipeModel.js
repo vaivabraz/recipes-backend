@@ -15,7 +15,8 @@ const recipeModel = new Schema({
   date: { type: Number },
   author: { type: String },
   slug: { type: String },
-  _id: { type: String }
+  recipeId: { type: Number },
+  _id: { type: String },
 });
 
 module.exports = mongoose.model("Recipe", recipeModel);

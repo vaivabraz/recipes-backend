@@ -18,6 +18,7 @@ const User = require("./models/userModel");
 const Recipe = require("./models/recipeModel");
 
 const recipesRouter = require("./routes/recipesRouter")(Recipe);
+const userRecipesRouter = require("./routes/userRecipesRouter")();
 const userRouter = require("./routes/usersRouter")(User);
 const loginRouter = require("./routes/loginRouter")();
 
@@ -25,6 +26,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 app.use("/api", recipesRouter);
+app.use("/api", userRecipesRouter);
 app.use("/api", userRouter);
 app.use("/api", loginRouter);
 app.locals.moment = require("moment");
