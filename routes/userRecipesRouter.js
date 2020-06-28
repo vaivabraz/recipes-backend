@@ -75,6 +75,9 @@ function routes() {
     });
   });
   recipesRouter
+    .route("/userRecipes/:slug/get")
+    .put((req, res) => res.json(req.recipe));
+  recipesRouter
     .route("/userRecipes/:slug")
     .get((req, res) => res.json(req.recipe))
     .put((req, res) => {
