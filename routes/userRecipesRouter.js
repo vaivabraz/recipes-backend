@@ -60,6 +60,9 @@ function routes() {
       return res.json(recipes);
     });
   });
+  recipesRouter
+    .route("/userRecipes/list/short")
+    .post((req, res) => res.json(req.user.recipesList));
   recipesRouter.use("/userRecipes/:slug", (req, res, next) => {
     RecipeModel.findOne({ slug: req.params.slug }, (err, recipe) => {
       if (err) {
