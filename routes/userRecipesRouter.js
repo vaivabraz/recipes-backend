@@ -42,7 +42,7 @@ function routes() {
     const newRecipeDocument = new RecipeModel(recipe);
     newRecipeDocument.save();
     const { user } = req;
-    user.recipesList.push({
+    user.recipesList.unshift({
       title: recipe.title,
       slug: recipe.slug,
       image: recipe.image,
