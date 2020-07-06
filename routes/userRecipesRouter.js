@@ -82,46 +82,38 @@ function routes() {
     .get((req, res) => res.json(req.recipe))
     .put((req, res) => {
       const savedRecipe = req.recipe;
-      const recipeToUpdate = req.body.recipe;
-      const shortRecipeUpdate = {};
-      const recipeUpdate = {};
-
-      Object.entries(recipeToUpdate).forEach((item) => {
+      const comingRecipe = req.body.recipe;
+      Object.entries(comingRecipe).forEach((item) => {
         const key = item[0];
         const value = item[1];
-
-        if (key === "title") {
-          const slug = createSlug(value, savedRecipe.recipeId);
-          shortRecipeUpdate.slug = slug;
-          recipeUpdate.slug = slug;
-          shortRecipeUpdate[key] = value;
-        } else if (key === "image") {
-          shortRecipeUpdate[key] = value;
-        }
-        recipeUpdate[key] = value;
+        savedRecipe[key] = value;
       });
-      RecipeModel.update(
-        { slug: req.params.slug },
-        { $set: recipeUpdate },
-        (error) => {
-          if (error) return res.send(error);
-          if (Object.keys(shortRecipeUpdate).length !== 0) {
-            const { user } = req;
-            const index = user.recipesList.findIndex(
-              (r) => r.slug === req.params.slug,
-            );
-            const oldShortRecipe = user.recipesList[index];
-            const newShortRecipe = { ...oldShortRecipe, ...shortRecipeUpdate };
-            user.recipesList[index] = newShortRecipe;
-            user.markModified("recipesList");
-            user.save((err) => {
-              if (err) return res.send(error);
-              return recipeUpdate;
-            });
-          }
-          return res.status(200).json(recipeUpdate);
-        },
-      );
+      savedRecipe.save((err) => {
+        if (err) {
+          return res.send(err);
+        }
+        const { user } = req;
+        const index = user.recipesList.findIndex(
+          (r) => r.slug === req.params.slug,
+        );
+        const oldShortRecipe = user.recipesList[index];
+        const shortRecipeKeys = ["title", "image"];
+        const changedKeys = shortRecipeKeys.filter(
+          (key) => oldShortRecipe[key] !== savedRecipe[key],
+        );
+
+        if (changedKeys.length) {
+          changedKeys.forEach((key) => {
+            oldShortRecipe[key] = savedRecipe[key];
+          });
+          user.markModified("recipesList");
+          user.save((error) => {
+            if (error) return res.send(error);
+            return savedRecipe;
+          });
+        }
+        return res.json(savedRecipe);
+      });
     })
     .delete((req, res) => {
       RecipeModel.remove({ slug: req.params.slug }, (error) => {
