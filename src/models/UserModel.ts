@@ -2,7 +2,6 @@ import pkg from 'mongoose';
 const { Schema, model } = pkg;
 import { UserDocument, UserInterface } from './interfaces/User';
 
-//padaryt, kad schema butu susieta su interface
 const UserSchema = new Schema<UserInterface>(
   {
     username: { type: String, required: true },
