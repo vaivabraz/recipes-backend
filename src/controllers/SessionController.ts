@@ -5,24 +5,57 @@ import { createAccessToken } from '../utils/auth';
 const { verify } = pkg;
 
 export const refreshSession = async (req: Request, res: Response) => {
+  const handleFailedResponse = (res: Response) => {
+    //TODO: ar reikia cia pakeisti status code??
+    res.send({ accessToken: '' });
+  };
+
   const token = req.cookies.vbck;
   if (!token) {
-    return res.send({ ok: false, accessToken: '' });
+    return handleFailedResponse(res);
   }
   let payload: any = null;
   try {
     payload = verify(token, process.env.REFRESH_TOKEN_SECRET);
   } catch (e) {
-    console.log('error:', e);
-    return res.send({ ok: false, accessToken: '' });
+    return handleFailedResponse(res);
   }
 
-  const query = {
+  const user = await UserModel.findOne({
     username: payload.username,
-  };
-  const user = await UserModel.findOne(query);
+  });
   if (!user) {
-    return res.send({ ok: false, accessToken: '' });
+    return handleFailedResponse(res);
   }
-  return res.send({ ok: true, accessToken: createAccessToken(user) });
+  if (user.tokenVersion !== payload.tokenVersion) {
+    return handleFailedResponse(res);
+  }
+
+  return res.send({ accessToken: createAccessToken(user) });
+};
+
+interface RevokeRefreshTokenForUserReqBody {
+  username: string;
+}
+interface RevokeRefreshTokenForUserResBody {
+  errorMessage?: string;
+}
+
+export const revokeRefreshTokenForUser = async (
+  req: Request<{}, {}, RevokeRefreshTokenForUserReqBody>,
+  res: Response<RevokeRefreshTokenForUserResBody>
+) => {
+  try {
+    const query = {
+      username: req.body.username,
+    };
+
+    await UserModel.findOneAndUpdate(query, {
+      $inc: { tokenVersion: 1 },
+    });
+
+    res.send();
+  } catch (e) {
+    res.status(400).json({ errorMessage: e });
+  }
 };
