@@ -1,11 +1,13 @@
 import { Document, Model, model, Types, Schema, Query } from 'mongoose';
 
 export interface UserInterface {
+  email: string;
   username: string;
   password: string;
   loginType: string; //TODO: sukonkretinti kokie galimi
   recipesList: []; //TODO: sukonkretinti
-  userCategories: []; //TODO: sukontretinti
+  userCategories: string[];
+  tokenVersion: number;
 }
 
 interface UserBaseDocument extends UserInterface, Document {
