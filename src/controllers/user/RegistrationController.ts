@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import UserModel from '../models/UserModel';
+import UserModel from '../../models/UserModel';
 import pkg from 'bcryptjs';
 const { hash } = pkg;
 
