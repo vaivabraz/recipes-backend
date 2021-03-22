@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import UserModel from '../../models/UserModel';
-import { createAccessToken, createRefreshToken } from '../../utils/auth';
+import { createAccessToken, createRefreshToken } from '../../utils/createToken';
 import pkg from 'bcryptjs';
 const { compare } = pkg;
 

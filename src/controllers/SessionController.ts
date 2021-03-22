@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import pkg from 'jsonwebtoken';
 import UserModel from '../models/UserModel';
-import { createAccessToken } from '../utils/auth';
+import { createAccessToken } from '../utils/createToken';
 const { verify } = pkg;
 
 export const refreshSession = async (req: Request, res: Response) => {
