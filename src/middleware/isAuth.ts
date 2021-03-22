@@ -12,10 +12,10 @@ export const isAuth: RequestHandler = (
   next
 ) => {
   const authorization = req.headers['authorization'];
-  if (!authorization) {
-    throw 'not authorized';
-  }
   try {
+    if (!authorization) {
+      throw 'not authorized';
+    }
     const token = authorization.split(' ')[1];
     const payload = verify(token, process.env.ACCESS_TOKEN_SECRET);
     req.body.payload = payload;
