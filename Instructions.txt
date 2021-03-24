@@ -1,3 +1,0 @@
----IMPORT data to your MongoDB database--
-* make sure MongoDB (mongod) is running
-* run 'mongo recipesAPI < recipesJson.js'
