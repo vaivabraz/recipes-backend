@@ -1,0 +1,14 @@
+{
+  "extends": "airbnb-base",
+  "defaultSeverity": "warning",
+  "jsRules": {},
+  "rules": {
+    "trailing-comma": [false],
+    "no-unused-vars": ["warn"],
+    "no-var": ["off"],
+    "one-var": ["off"],
+    "quotes": ["error", "double"],
+    "indentSize": 2
+  },
+  "rulesDirectory": []
+}
