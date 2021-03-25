@@ -6,7 +6,8 @@ import cors from 'cors';
 
 (async () => {
   const app: Application = express();
-  const port: number | string = 3001 || process.env.PORT;
+  const port: number | string = process.env.PORT || 3001;
+
   dotenv.config();
 
   const dbUser = process.env.DATABASE_USER;
