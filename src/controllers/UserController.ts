@@ -18,7 +18,9 @@ export const getMe = async (req: Request, res: Response) => {
       username: req.body.payload.username,
     });
     res.send({
-      user: user,
+      username: user.username,
+      recipesList: user.recipesList,
+      userCategories: user.userCategories,
     });
   } catch (e) {
     return res.status(400).json({
