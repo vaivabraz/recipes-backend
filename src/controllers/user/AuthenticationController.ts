@@ -68,7 +68,7 @@ export const logoutUser = async (
 const setCookie = (res: Response, token: string) => {
   res.cookie('vbck', token, {
     httpOnly: true,
-    sameSite: 'strict',
+    // sameSite: 'strict',
     // path: '/refresh_session', TODO: ar reikia sito?
   });
 };
