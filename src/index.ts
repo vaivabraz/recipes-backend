@@ -22,7 +22,11 @@ import cors from 'cors';
   app.use(
     cors({
       credentials: true,
-      origin: ['http://localhost:3000', 'http://localhost:3005'],
+      origin: [
+        'http://localhost:3000',
+        'http://localhost:3005',
+        'https://i-am-awesome-in-the-kitchen.herokuapp.com',
+      ],
     })
   );
   app.use(express.json());
