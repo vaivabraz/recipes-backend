@@ -19,7 +19,12 @@ import cors from 'cors';
 
   //TODO: remove body-parser dependency
   //TODO: not only local host
-  app.use(cors({ credentials: true, origin: 'http://localhost:3000' }));
+  app.use(
+    cors({
+      credentials: true,
+      origin: ['http://localhost:3000', 'http://localhost:3005'],
+    })
+  );
   app.use(express.json());
   app.use('/api', UserRouter);
 
