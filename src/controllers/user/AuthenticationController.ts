@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import UserModel from '../../models/UserModel';
-import { createAccessToken, createRefreshToken } from '../../utils/createToken';
+import { createRefreshToken } from '../../utils/createToken';
 import pkg from 'bcryptjs';
 const { compare } = pkg;
 
@@ -34,14 +34,12 @@ export const loginUser = async (
     }
 
     setCookie(res, createRefreshToken(user));
-    res.send({
-      accessToken: createAccessToken(user),
-    });
+    res.send();
   } catch (e) {
     if (typeof e === 'string') {
       e = { errorMessage: e };
     }
-    res.status(400).json(e);
+    res.status(401).json(e);
   }
 };
 
