@@ -11,16 +11,16 @@ export const isAuth: RequestHandler = (
   res,
   next
 ) => {
-  const authorization = req.headers['authorization'];
+  const token = req.cookies.vbck;
   try {
-    if (!authorization) {
+    if (!token) {
       throw 'not authorized';
     }
-    const token = authorization.split(' ')[1];
-    const payload = verify(token, process.env.ACCESS_TOKEN_SECRET);
+
+    const payload = verify(token, process.env.REFRESH_TOKEN_SECRET);
     req.body.payload = payload;
   } catch (error) {
-    return res.status(404).json({
+    return res.status(401).json({
       message: error,
     });
   }
