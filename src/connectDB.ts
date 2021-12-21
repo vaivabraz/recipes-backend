@@ -1,6 +1,7 @@
 import mongoose from 'mongoose';
 
 const mongooseConnect = (db: string) => {
+  //
   const connect = () => {
     mongoose
       .connect(db, { useNewUrlParser: true })
