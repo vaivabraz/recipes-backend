@@ -1,6 +1,6 @@
 import pkg from 'mongoose';
 const { Schema, model } = pkg;
-import { UserDocument, UserInterface } from './interfaces/User';
+import { UserDocument, UserInterface } from './UserInterface';
 
 //TODO: should depend on user selected language
 const initialCategories = [
@@ -28,5 +28,4 @@ const UserSchema = new Schema<UserInterface>(
   { strict: false }
 );
 
-const UserModel = model<UserDocument>('User', UserSchema);
-export default UserModel;
+export const UserModel = model<UserDocument>('User', UserSchema);

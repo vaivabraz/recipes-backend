@@ -1,4 +1,4 @@
-import { Document, Model, model, Types, Schema, Query } from 'mongoose';
+import { Document } from 'mongoose';
 
 export interface UserInterface {
   email: string;

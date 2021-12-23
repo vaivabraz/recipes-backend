@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import pkg from 'jsonwebtoken';
-import UserModel from '../models/UserModel';
+import { UserModel } from '../models';
 import { createAccessToken } from '../utils/createToken';
 const { verify } = pkg;
 
