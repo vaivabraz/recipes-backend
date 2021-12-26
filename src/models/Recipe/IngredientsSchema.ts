@@ -20,14 +20,14 @@ type IngredientsGroupsType = {
 };
 
 const IngredientsGroup = new Schema<IngredientsGroupsType>({
-  groupName: { type: String, required: true },
-  index: { type: Number, required: true },
+  groupName: { type: String },
+  index: { type: Number },
 });
 
 const IngredientsItem = new Schema<IngredientsGroupsType>({
-  product: { type: String, required: true },
+  product: { type: String },
   quantity: { type: String },
-  id: { type: Number, required: true },
+  id: { type: Number },
   groupIndex: { type: Number },
 });
 

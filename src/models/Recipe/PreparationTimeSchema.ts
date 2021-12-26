@@ -13,8 +13,8 @@ type PreparationTimeRangeType = {
 };
 
 const TimeRange = new Schema<PreparationTimeRangeType>({
-  processName: { type: String, required: true },
-  time: { type: String, required: true },
+  processName: { type: String },
+  time: { type: String },
 });
 
 export const PreparationTimeSchema = new Schema<PreparationTimeInRecipeType>({

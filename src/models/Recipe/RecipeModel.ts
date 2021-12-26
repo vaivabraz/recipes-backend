@@ -2,7 +2,7 @@ import pkg from 'mongoose';
 import { IngredientsSchema } from './IngredientsSchema';
 import { PreparationStepsSchema } from './PreparationStepsSchema';
 import { PreparationTimeSchema } from './PreparationTimeSchema';
-const { Schema, model, SchemaTypes } = pkg;
+const { Schema, model } = pkg;
 import { RecipeDocument, RecipeInterface } from './RecipeInterface';
 
 const RecipeSchema = new Schema<RecipeInterface>(
@@ -27,9 +27,8 @@ const RecipeSchema = new Schema<RecipeInterface>(
       default: Date.now,
     },
     author: { type: String, required: true },
-    author1: { type: String, required: true },
     slug: { type: String, required: true },
-    // recipeId: { type: Number, required: true },
+    // recipeId: { type: Number },
   }
   //   { strict: false }
 );

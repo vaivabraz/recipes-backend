@@ -18,12 +18,12 @@ type StepsListItemType = {
 };
 
 const StepsGroup = new Schema<StepsGroupsType>({
-  groupName: { type: String, required: true },
-  index: { type: Number, required: true },
+  groupName: { type: String },
+  index: { type: Number },
 });
 
 const Step = new Schema<StepsListItemType>({
-  step: { type: String, required: true },
+  step: { type: String },
   groupIndex: { type: Number },
 });
 
