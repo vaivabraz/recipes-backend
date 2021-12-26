@@ -19,7 +19,6 @@ export const getMe = async (req: Request, res: Response) => {
     });
     res.send({
       username: user.username,
-      recipesList: user.recipesList,
       userCategories: user.userCategories,
     });
   } catch (e) {

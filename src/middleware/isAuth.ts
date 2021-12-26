@@ -3,7 +3,13 @@ import pkg from 'jsonwebtoken';
 const { verify } = pkg;
 
 interface reqBody {
-  payload: string | object;
+  payload?: string | object;
+}
+
+export interface AuthorizedReqBody {
+  payload: {
+    username: string;
+  };
 }
 
 export const isAuth: RequestHandler = (

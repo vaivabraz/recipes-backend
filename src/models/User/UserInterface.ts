@@ -5,7 +5,6 @@ export interface UserInterface {
   username: string;
   password: string;
   loginType: string; //TODO: sukonkretinti kokie galimi
-  recipesList: []; //TODO: sukonkretinti
   userCategories: string[];
   tokenVersion: number;
 }

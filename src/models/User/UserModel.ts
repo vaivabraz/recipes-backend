@@ -21,11 +21,12 @@ const UserSchema = new Schema<UserInterface>(
     username: { type: String, required: true },
     password: { type: String, required: true, select: false },
     loginType: { type: String, required: false },
-    recipesList: Array,
     userCategories: { type: Array, default: initialCategories },
     tokenVersion: { type: Number, default: 0 },
   },
   { strict: false }
 );
+
+// UserSchema.virtual creates a virtual field that does not exist in the database, but is derivative
 
 export const UserModel = model<UserDocument>('User', UserSchema);
