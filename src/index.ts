@@ -1,6 +1,7 @@
 import express, { Application, Response, NextFunction } from 'express';
 import connect from './connectDB';
 import UserRouter from './routes/UserRouter';
+import RecipesRouter from './routes/RecipesRouter';
 import dotenv from 'dotenv';
 import cors from 'cors';
 
@@ -31,6 +32,7 @@ import cors from 'cors';
   );
   app.use(express.json());
   app.use('/api', UserRouter);
+  app.use('/api', RecipesRouter);
 
   app.get('/', (_req, res: Response, _next: NextFunction) => {
     res.send('Welcome to this awesome recipes website backend!');

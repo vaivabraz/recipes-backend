@@ -27,7 +27,7 @@ const RecipeSchema = new Schema<RecipeInterface>(
       default: Date.now,
     },
     author: { type: String, required: true, index: true },
-    slug: { type: String, required: true },
+    slug: { type: String, required: true, index: true },
     // recipeId: { type: Number },
   }
   //   { strict: false }
