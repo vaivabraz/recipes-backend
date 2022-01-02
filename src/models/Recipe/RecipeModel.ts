@@ -26,11 +26,13 @@ const RecipeSchema = new Schema<RecipeInterface>(
       required: true,
       default: Date.now,
     },
-    author: { type: String, required: true },
+    author: { type: String, required: true, index: true },
     slug: { type: String, required: true },
     // recipeId: { type: Number },
   }
   //   { strict: false }
 );
+
+// RecipeSchema.index({ name: 1 });
 
 export const RecipeModel = model<RecipeDocument>('Recipe', RecipeSchema);
