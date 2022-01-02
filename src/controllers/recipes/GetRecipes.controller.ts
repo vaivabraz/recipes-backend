@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import { RecipeModel } from '../../models';
 
-export const getUserRecipes = async (req: Request, res: Response) => {
+export const getMyRecipes = async (req: Request, res: Response) => {
   try {
     const userRecipes = await RecipeModel.where('author').equals(
       req.body.payload.username
