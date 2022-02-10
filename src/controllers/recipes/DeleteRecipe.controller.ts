@@ -3,11 +3,8 @@ import { RecipeModel } from '../../models';
 
 export const deleteRecipe = async (req: Request, res: Response) => {
   try {
-    if (req.body.payload.username !== req.body.recipe.author) {
-      res.status(403).json({ errorMessage: 'Not the author' });
-    }
     var query = {
-      slug: req.body.recipe.slug,
+      slug: req.body.slug,
       author: req.body.payload.username,
     };
 
