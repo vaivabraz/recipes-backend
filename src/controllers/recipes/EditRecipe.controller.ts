@@ -32,7 +32,7 @@ export const editRecipe = async (
     await RecipeModel.findOneAndUpdate(
       query,
       req.body.recipe,
-      {},
+      { new: true },
       callbackFunction
     );
   } catch (e) {
