@@ -67,7 +67,7 @@ const setCookie = (res: Response, token: string) => {
   res.cookie('vbck', token, {
     httpOnly: true,
     sameSite: 'none',
-    secure: true,
+    secure: true, //change to false when testing with postman
     // sameSite: 'strict',
     // path: '/refresh_session', TODO: ar reikia sito?
   });
