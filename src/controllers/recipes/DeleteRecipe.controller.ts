@@ -17,7 +17,7 @@ export const deleteRecipe = async (req: Request, res: Response) => {
       });
     };
 
-    await RecipeModel.findOneAndDelete(query, callbackFunction);
+    await RecipeModel.findOneAndDelete(query, null, callbackFunction);
   } catch (e) {
     res.status(400).json({ errorMessage: e });
   }
