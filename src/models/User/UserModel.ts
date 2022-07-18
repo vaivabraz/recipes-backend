@@ -4,15 +4,13 @@ import { UserDocument, UserInterface } from './UserInterface';
 
 //TODO: should depend on user selected language
 const initialCategories = [
-  'Desertai',
-  'Greiti',
-  'Gėrimai',
-  'Pietūs',
-  'Sriubos',
-  'Šalti patiekalai',
-  'Šventiniai',
-  'Užkandžiai',
-  'Vegetariška',
+  {id:'desserts', title:'Desertai'}, 
+  {id:'quickMeals', title:'Greiti'}, 
+  {id:'drinks', title:'Gėrimai'}, 
+  {id:'mainMeals', title:'Pagrindiniai patiekalai'}, 
+  {id:'soups', title:'Sriubos'},
+  {id:'snacks', title:'Užkandžiai'}, 
+  {id:'vegetarian', title:'Vegetariška'}, 
 ];
 
 const UserSchema = new Schema<UserInterface>(

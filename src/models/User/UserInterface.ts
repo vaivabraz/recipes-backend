@@ -5,9 +5,14 @@ export interface UserInterface {
   username: string;
   password: string;
   loginType: string; //TODO: sukonkretinti kokie galimi
-  userCategories: string[];
+  userCategories: UserCategories[];
   tokenVersion: number;
 }
+
+type UserCategories = {
+  id: string;
+  title: string;
+};
 
 interface UserBaseDocument extends UserInterface, Document {
   //galima prideti dalyku, kas nera duombazeje
