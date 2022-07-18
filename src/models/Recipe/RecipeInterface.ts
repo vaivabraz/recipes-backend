@@ -10,7 +10,7 @@ export interface UserDefinedRecipeInfo {
   portions: number;
   time: PreparationTimeInRecipeType;
   image: string;
-  categories: string[];
+  categories: {id: string, title: string}[];
   notes?: string;
   summary: string;
   link: string;

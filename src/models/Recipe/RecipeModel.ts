@@ -14,7 +14,7 @@ const RecipeSchema = new Schema<RecipeInterface>(
     portions: { type: Number },
     time: PreparationTimeSchema,
     image: { type: String },
-    categories: [String],
+    categories: [{id: String, title: String}],
     notes: { type: String },
     summary: { type: String },
     link: { type: String },
