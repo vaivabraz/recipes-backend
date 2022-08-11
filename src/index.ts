@@ -28,7 +28,7 @@ import cors from 'cors';
         'http://localhost:3000',
         'http://localhost:3005',
         'https://i-am-awesome-in-the-kitchen.herokuapp.com',
-        'https://my-awesome-kitchen.vercel.app/',
+        'https://my-awesome-kitchen.vercel.app',
       ],
     })
   );
